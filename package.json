@@ -1,0 +1,64 @@
+{
+  "name": "@picgo/bump-version",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "bump-version": ".bin/bump-version"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "cz": "git-cz",
+    "release": "node ./.bin/bump-version",
+    "lint": "eslint --ext .js -f ./node_modules/eslint-friendly-formatter .",
+    "lint:fix": "eslint --ext .js -f ./node_modules/eslint-friendly-formatter --fix ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PicGo/bump-version.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PicGo/bump-version/issues"
+  },
+  "homepage": "https://github.com/PicGo/bump-version#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^7.5.2",
+    "commitizen": "^3.0.7",
+    "conventional-changelog": "^3.0.6",
+    "cz-customizable": "^5.8.0",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "husky": "^1.3.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": ".cz-config.js"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "./commitlint-picgo"
+    ]
+  },
+  "dependencies": {
+    "ora": "^3.4.0"
+  }
+}

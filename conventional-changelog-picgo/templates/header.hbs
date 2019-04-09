@@ -1,0 +1,13 @@
+{{#if isPatch~}}
+  ##
+{{~else~}}
+  #
+{{~/if}} {{#if @root.linkCompare~}}
+:tada: {{version}}
+{{~else}}
+:tada: {{version}}
+{{~/if}}
+{{~#if title}} "{{title}}"
+{{~/if}}
+{{~#if date}} ({{date}})
+{{/if}}

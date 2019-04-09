@@ -1,0 +1,7 @@
+node_modules/
+yarn-error.log
+package-lock.json
+tsconfig.json
+tslint.json
+.vscode/
+.travis.yml

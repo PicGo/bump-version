@@ -1,0 +1,111 @@
+#!/usr/bin/env node
+const minimist = require('minimist')
+const semver = require('semver')
+const path = require('path')
+const inquirer = require('inquirer')
+const _ = require('lodash')
+const logger = require('../src/logger')
+const mainLifeCycle = require('../src/mainLifeCycle')
+const utils = require('../src/utils')
+
+let pkg
+try {
+  pkg = require(path.join(process.cwd(), 'package.json'))
+} catch (e) {
+  return logger('package.json not found!', 'error')
+}
+let argv = minimist(process.argv.slice(2), {
+  alias: {
+    'preid-alpha': 'a', // alpha
+    'preid-beta': 'b', // beta
+    'dry': 'd', // dry run mode
+    'file': 'f', // changelog file,
+    'path': 'p', // package.json's path
+    'help': 'h', // help message
+    'type': 't', // bump type
+  }
+})
+
+if (argv.h) {
+  return console.log(utils.helperMsg)
+}
+
+let releaseType = typeof argv.t === 'string' ? argv.t : 'patch'
+let currentVersion = pkg.version
+if (currentVersion === undefined) {
+  return logger('Version field is not found in package.json!', 'error')
+}
+let preid = argv.pa ? 'alpha' : argv.pb ? 'beta' :  ''
+let nextVersion = semver.inc(currentVersion, releaseType, preid)
+let releaseTypes = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease']
+
+function generateReleaseTypes (types) {
+  return types.map(item => {
+    let version = semver.inc(currentVersion, item, (preid || 'alpha'))
+    return {
+      name: `${item} - ${version}`,
+      value: version
+    }
+  })
+}
+
+let defaultObj = {
+  path: process.cwd(),
+  file: 'CHANGELOG.md'
+}
+
+argv = _.assign({}, defaultObj, argv)
+
+let promptList = [
+  {
+    type: 'confirm',
+    name: 'confirmVersion',
+    message: `The next version is ${nextVersion}, is it right?`
+  }
+]
+console.log(
+`
+BumpVersion -- By PicGo Group
+`
+);
+(async () => {
+  let answer = await inquirer.prompt(promptList)
+  if (answer.confirmVersion) {
+    await mainLifeCycle(argv, currentVersion, nextVersion)
+  } else {
+    promptList = [
+      {
+        type: 'list',
+        name: 'version',
+        message: `The current version is ${currentVersion}\n Which version would you like to bump it?`,
+        choices: [
+          ...generateReleaseTypes(releaseTypes),
+          new inquirer.Separator(),
+          'custom version',
+          'never mind~',
+        ],
+        pageSize: 10
+      }
+    ]
+    let answer = await inquirer.prompt(promptList)
+    if (answer.version === 'never mind~') {
+      return console.log('Bye~')
+    } else if (answer.version === 'custom version') {
+      promptList = [
+        {
+          type: 'input',
+          name: 'version',
+          message: 'Write down your custom version:'
+        }
+      ]
+      let result = await inquirer.prompt(promptList)
+      if (semver.valid(result.version) && semver.gte(result.version, currentVersion)) {
+        await mainLifeCycle(argv, currentVersion, result.version)
+      } else {
+        return logger('Invalid version!', 'error')
+      }
+    } else {
+      await mainLifeCycle(argv, currentVersion, answer.version)
+    }
+  }
+})()
