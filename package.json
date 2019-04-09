@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "bump-version": ".bin/bump-version"
+    "bump-version": "./bin/bump-version"
   },
   "publishConfig": {
     "access": "public"
@@ -12,7 +12,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "cz": "git-cz",
-    "release": "node ./.bin/bump-version",
+    "release": "node ./bin/bump-version",
     "lint": "eslint --ext .js -f ./node_modules/eslint-friendly-formatter .",
     "lint:fix": "eslint --ext .js -f ./node_modules/eslint-friendly-formatter --fix ."
   },
@@ -26,8 +26,8 @@
     "type": "git",
     "url": "git+https://github.com/PicGo/bump-version.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Molunerfinn",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/PicGo/bump-version/issues"
   },
