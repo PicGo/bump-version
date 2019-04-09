@@ -10,7 +10,7 @@
     "access": "public"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
     "cz": "git-cz",
     "release": "node ./.bin/bump-version",
     "lint": "eslint --ext .js -f ./node_modules/eslint-friendly-formatter .",
