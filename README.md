@@ -12,7 +12,7 @@ It's now only available for Node.js projects. Thanks [standard-version](https://
     <img src="https://img.shields.io/badge/code%20style-standard-green.svg?style=flat-square" alt="">
   </a>
   <a href="https://github.com/PicGo/bump-version/releases/latest">
-    <img src="https://img.shields.io/github/release/PicGo/bump-version.svg?style=flat-square" alt="">
+    <img src="https://img.shields.io/npm/v/@picgo/bump-version.svg?style=flat-square" alt="">
   </a>
   <a href="https://github.com/PicGo/bump-version">
     <img src="https://img.shields.io/badge/picgo-convention-blue.svg?style=flat-square" alt="">
@@ -46,7 +46,7 @@ alternatively add the following things in your `package.json`:
   },
 },
 "commitlint": {
-  "extends": ["./node_modules/@picgo/bump-verison/commitlint-picgo"]
+  "extends": ["./node_modules/@picgo/bump-version/commitlint-picgo"]
 }
 ```
 
