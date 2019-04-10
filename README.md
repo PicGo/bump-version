@@ -43,7 +43,7 @@ alternatively add the following things in your `package.json`:
   },
   "cz-customizable": {
     "config": "./node_modules/@picgo/bump-version/.cz-config.js"
-  },
+  }
 },
 "commitlint": {
   "extends": ["./node_modules/@picgo/bump-version/commitlint-picgo"]
