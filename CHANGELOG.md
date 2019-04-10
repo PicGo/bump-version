@@ -1,3 +1,17 @@
+## :tada: 1.0.2 (2019-04-10)
+
+
+### :bug: Bug Fixes
+
+* preid command from 'pa' to 'a' && eslint error ([cf989fa](https://github.com/PicGo/bump-version/commit/cf989fa))
+
+
+### :pencil: Documentation
+
+* fix word error && change version badge ([0cbeb79](https://github.com/PicGo/bump-version/commit/0cbeb79))
+
+
+
 ## :tada: 1.0.1 (2019-04-09)
 
 
