@@ -12,7 +12,8 @@ let pkg
 try {
   pkg = require(path.join(process.cwd(), 'package.json'))
 } catch (e) {
-  return logger('package.json not found!', 'error')
+  logger('package.json not found!', 'error')
+  process.exit(0)
 }
 let argv = minimist(process.argv.slice(2), {
   alias: {
@@ -22,20 +23,22 @@ let argv = minimist(process.argv.slice(2), {
     'file': 'f', // changelog file,
     'path': 'p', // package.json's path
     'help': 'h', // help message
-    'type': 't', // bump type
+    'type': 't' // bump type
   }
 })
 
 if (argv.h) {
-  return console.log(utils.helperMsg)
+  console.log(utils.helperMsg)
+  process.exit(0)
 }
 
 let releaseType = typeof argv.t === 'string' ? argv.t : 'patch'
 let currentVersion = pkg.version
 if (currentVersion === undefined) {
-  return logger('Version field is not found in package.json!', 'error')
+  logger('Version field is not found in package.json!', 'error')
+  process.exit(0)
 }
-let preid = argv.pa ? 'alpha' : argv.pb ? 'beta' :  ''
+let preid = argv.a ? 'alpha' : argv.b ? 'beta' : ''
 let nextVersion = semver.inc(currentVersion, releaseType, preid)
 let releaseTypes = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease']
 
@@ -64,9 +67,9 @@ let promptList = [
   }
 ]
 console.log(
-`
+  `
 BumpVersion -- By PicGo Group
-`
+  `
 );
 (async () => {
   let answer = await inquirer.prompt(promptList)
@@ -82,7 +85,7 @@ BumpVersion -- By PicGo Group
           ...generateReleaseTypes(releaseTypes),
           new inquirer.Separator(),
           'custom version',
-          'never mind~',
+          'never mind~'
         ],
         pageSize: 10
       }
