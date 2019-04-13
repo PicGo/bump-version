@@ -29,9 +29,9 @@ npm install -D  @picgo/bump-version conventional-changelog commitizen cz-customi
 yarn add -D  @picgo/bump-version conventional-changelog commitizen cz-customizable @commitlint/cli husky
 ```
 
-alternatively add the following things in your `package.json`:
+Also, add the following data at the top level in your `package.json` to properly config `bump-version` (replace old `config` if you have already configured `commitizen` or `cz-customizable` before):
 
-```
+```json
 "husky": {
   "hooks": {
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
@@ -50,16 +50,16 @@ alternatively add the following things in your `package.json`:
 }
 ```
 
-And then add npm run scripts to your package.json:
+And then add the following (inside the braces) to the `scripts` field of your package.json:
 
-```
+```json
 "scripts": {
   "cz": "git-cz",
   "release": "bump-version"
 }
 ```
 
-Then you can use `npm run cz` for commiting valid message && use `npm run release` to bump version & auto generate changelog in your project!
+Then you can use `npm run cz` for committing standard message and use `npm run release` to bump version & auto generate changelog in your project!
 
 If you are using [yarn](https://yarnpkg.com/), then it will be more simple just like:
 
@@ -79,9 +79,9 @@ So the workflow is the following:
 
 ## Usage
 
-> If you install bump-version in project, then you can just write down the `bump-version` command in your `package.json`'s `scripts` field. Then just `npm run you-command`.
+> If you installed bump-version in a project, then you can just write down the `bump-version` command in your `package.json`'s `scripts` field. Then just `npm run you-command`.
 
-```
+```txt
 Usage
   bump-version
 
@@ -132,7 +132,7 @@ npm run release --dry
 
 Let more people know that you are using PicGo bump-version for elegant workflow!
 
-```
+```md
 [![PicGo Convention](https://img.shields.io/badge/picgo-convention-blue.svg?style=flat-square)](https://github.com/PicGo/bump-version)
 ```
 
@@ -146,7 +146,7 @@ PicGo's commit message guidelines.
 - Use the imperative mood ("move cursor to..." not "moves cursor to...")
 - Do not repeat the word in type ("Fix: xxx bugs when..." not "Fix: fix xxx bugs when...")
 - Limit the first line to 72 characters or less
-- Start the commit message with an applicable emoji & type:
+- Start the commit message with an applicable `emoji` & `type`:
 
   - :sparkles: Feature `:sparkles: Feature` when adding new features
   - :bug: Fix `:bug: Fix` when fixing bugs
@@ -166,13 +166,14 @@ PicGo's commit message guidelines.
 
 A commit message consists of a **header**, **body**(optional) and **footer**(optional). The header has a **emoji**, **type**, **scope**(optional) and **subject**:
 
-```
+```txt
 <emoji> <type>([scope]): <subject>
 <BLANK LINE>
 [body]
 <BLANK LINE>
 [footer]
 ```
+
 #### Examples
 
 ##### 1. Normal
@@ -180,7 +181,8 @@ A commit message consists of a **header**, **body**(optional) and **footer**(opt
 :sparkles: Feature(core): add error notification
 
 :bug: Fix(core): xxx error should be thrown
-```
+
+```txt
 :sparkles: Feature(core): add error notification
 
 :bug: Fix(core): xxx error should be thrown
@@ -207,7 +209,8 @@ and they will be rendered into the following changelog:
 :sparkles: Feature(core): add error notification
 
 BREAKING CHANGE: change api for error notification
-```
+
+```md
 :sparkles: Feature(core): add error notification
 
 BREAKING CHANGE: change api for error notification
@@ -222,7 +225,7 @@ and they will be rendered into the following changelog:
 
 - add error notification
 
-## BEAKING CHANGES
+## BREAKING CHANGES
 
 - change api for error notification
 ```
