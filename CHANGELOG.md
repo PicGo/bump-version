@@ -1,3 +1,23 @@
+## :tada: 1.0.3 (2019-05-11)
+
+
+### :sparkles: Features
+
+* **header:** add header-max-length from 72 to 100 ([7a5ec79](https://github.com/PicGo/bump-version/commit/7a5ec79))
+
+
+### :bug: Bug Fixes
+
+* **lint:** subject case can't be sentence-case ([860a327](https://github.com/PicGo/bump-version/commit/860a327))
+
+
+### :pencil: Documentation
+
+* refine readme ([#1](https://github.com/PicGo/bump-version/issues/1)) ([1984de2](https://github.com/PicGo/bump-version/commit/1984de2))
+* remove a comma ([f484287](https://github.com/PicGo/bump-version/commit/f484287))
+
+
+
 ## :tada: 1.0.2 (2019-04-10)
 
 
