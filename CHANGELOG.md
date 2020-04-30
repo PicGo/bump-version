@@ -1,3 +1,12 @@
+# :tada: 1.1.0 (2020-04-30)
+
+
+### :sparkles: Features
+
+* change some dev deps to deps ([12bd7b0](https://github.com/PicGo/bump-version/commit/12bd7b0))
+
+
+
 ## :tada: 1.0.3 (2019-05-11)
 
 
