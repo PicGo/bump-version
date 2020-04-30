@@ -22,11 +22,11 @@ It's now only available for Node.js projects. Thanks [standard-version](https://
 ## Installation
 
 ```bash
-npm install -D  @picgo/bump-version conventional-changelog commitizen cz-customizable @commitlint/cli husky
+npm install -D  @picgo/bump-version
 
 #or
 
-yarn add -D  @picgo/bump-version conventional-changelog commitizen cz-customizable @commitlint/cli husky
+yarn add -D  @picgo/bump-version
 ```
 
 Also, add the following data at the top level in your `package.json` to properly config `bump-version` (replace old `config` if you have already configured `commitizen` or `cz-customizable` before):
@@ -80,6 +80,41 @@ So the workflow is the following:
 ## Usage
 
 > If you installed bump-version in a project, then you can just write down the `bump-version` command in your `package.json`'s `scripts` field. Then just `npm run you-command`.
+
+### Commit
+
+```bash
+npm run cz
+
+# or
+
+yarn cz
+```
+
+This leads to an interactive submit message interface:
+
+```
+? Select the type of change that you're committing: (Use arrow keys)
+❯ Feature:  when adding new features 
+  Fix:      when fixing bugs 
+  WIP:      when working in progress 
+  Refactor: when changing the code without adding features or fixing bugs 
+  Chore:    when changing the build process or auxiliary tools and libraries such as documentation generation 
+  Style:    when improving the format/structure of the code 
+  Upgrade:  when upgrading dependencies
+```
+
+You can use this interface to quickly generate commit information that is compliant with the PicGo convention.
+
+### Bump version
+
+```bash
+npm run release
+
+# or
+
+yarn run cz
+```
 
 ```txt
 Usage
@@ -238,10 +273,11 @@ Available branches:
 
 - `master` for the release
 - `dev` for the development
-- `alpha` for developing the next breaking change or next major release
-- `docs` or `gh-pages` for the documentation
+- `docs` or `gh-pages` for the documentation **[optional]**
 - `pr` for the pull request **[optional]**
 - `hot-fix` for fixing the bug in master **[optional]**
+- `feat-*` for developing a new feature
+- `fix-*` for fixing a bug in dev branch
 
 ## License
 
