@@ -1,3 +1,12 @@
+## :tada: 1.1.2 (2021-09-16)
+
+
+### :package: Chore
+
+* change travis-ci -> github actions ([d3c896f](https://github.com/PicGo/bump-version/commit/d3c896f))
+
+
+
 ## :tada: 1.1.1 (2021-04-10)
 
 
