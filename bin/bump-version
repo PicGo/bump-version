@@ -66,7 +66,8 @@ let promptList = [
     message: `The next version is ${nextVersion}, is it right?`
   }
 ]
-(async () => {
+
+;(async () => {
   let answer = await inquirer.prompt(promptList)
   if (answer.confirmVersion) {
     await mainLifeCycle(argv, currentVersion, nextVersion)

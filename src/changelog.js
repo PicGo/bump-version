@@ -1,6 +1,6 @@
 const fs = require('fs')
 const cc = require('conventional-changelog')
-const config = require('../conventional-changelog-picgo')
+const config = require('../conventional-changelog-ext')
 
 module.exports = (argv, newVersion) => {
   if (argv.changelog === false)
