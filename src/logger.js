@@ -1,10 +1,10 @@
-const ora = require('./ora')
 const chalk = require('chalk')
+const ora = require('./ora')
 const level = {
   success: 'green',
   info: 'blue',
   warn: 'yellow',
-  error: 'red'
+  error: 'red',
 }
 module.exports = (msg, type) => {
   let log = chalk[level[type]](`[Bump ${type.toUpperCase()}]: `)

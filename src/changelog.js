@@ -1,27 +1,28 @@
+const fs = require('fs')
 const cc = require('conventional-changelog')
 const config = require('../conventional-changelog-picgo')
-const fs = require('fs')
 
 module.exports = (argv, newVersion) => {
-  if (argv.changelog === false) {
+  if (argv.changelog === false)
     return Promise.resolve()
-  }
+
   return new Promise((resolve, reject) => {
     let content = ''
     let oldContent = ''
     try {
       oldContent = fs.readFileSync(argv.file, 'utf8')
-    } catch (e) {
+    }
+    catch (e) {
       oldContent = ''
     }
     let context = ''
     if (argv.dry) {
       context = {
-        version: newVersion
+        version: newVersion,
       }
     }
-    let changeLogStream = cc({
-      config
+    const changeLogStream = cc({
+      config,
     }, context, { merges: null, path: argv.path }).on('error', (err) => {
       return reject(err)
     })
@@ -32,7 +33,8 @@ module.exports = (argv, newVersion) => {
       if (argv.dry) {
         console.log('Changelog is:')
         console.log(content + oldContent)
-      } else {
+      }
+      else {
         fs.writeFileSync(argv.file, content + oldContent)
       }
       return resolve()

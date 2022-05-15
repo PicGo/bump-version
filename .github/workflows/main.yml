@@ -12,10 +12,11 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: 16.x
           registry-url: 'https://registry.npmjs.org'
       - name: Install modules
         run: yarn
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+# 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

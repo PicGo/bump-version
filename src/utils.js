@@ -1,17 +1,17 @@
 const path = require('path')
 const fs = require('fs')
 const checkFileAndGetPath = (argv, files) => {
-  return files.map(item => {
-    if (path.isAbsolute(item)) {
+  return files.map((item) => {
+    if (path.isAbsolute(item))
       return item
-    }
+
     return path.join(argv.path, item)
-  }).filter(item => {
+  }).filter((item) => {
     return fs.existsSync(item)
   })
 }
 const helperMsg = `
-BumpVersion -- By PicGo Group
+BumpVersion
 
 Usage
   bump-version
@@ -49,5 +49,5 @@ Options
 
 module.exports = {
   checkFileAndGetPath,
-  helperMsg
+  helperMsg,
 }

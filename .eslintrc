@@ -1,6 +1,6 @@
 {
-  "env": {
-    "node": true
-  },
-  "extends": "standard"
+  "extends": "@oceanlvr",
+  "rules": {
+    "no-console": "off",
+  }
 }

@@ -66,11 +66,6 @@ let promptList = [
     message: `The next version is ${nextVersion}, is it right?`
   }
 ]
-console.log(
-  `
-BumpVersion -- By PicGo Group
-  `
-);
 (async () => {
   let answer = await inquirer.prompt(promptList)
   if (answer.confirmVersion) {
@@ -92,7 +87,7 @@ BumpVersion -- By PicGo Group
     ]
     let answer = await inquirer.prompt(promptList)
     if (answer.version === 'never mind~') {
-      return console.log('Bye~')
+      return logger('Bye', 'info')
     } else if (answer.version === 'custom version') {
       promptList = [
         {

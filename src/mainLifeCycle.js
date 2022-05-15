@@ -3,9 +3,9 @@ const commit = require('./commit')
 const changeLog = require('./changelog')
 const tag = require('./tag')
 const spinner = require('./ora')
-module.exports = (argv, currentVersion, newVersion) => {
+module.exports = (argv, _currentVersion, newVersion) => {
   spinner.start()
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _reject) => {
     spinner.text = 'Bumping version...'
     return resolve(bumpVersion(argv, newVersion))
   }).then(() => {
@@ -19,7 +19,7 @@ module.exports = (argv, currentVersion, newVersion) => {
     return tag(argv, newVersion)
   }).then(() => {
     spinner.succeed('Done!')
-  }).catch(e => {
-    spinner.fail('Failed!')
+  }).catch((err) => {
+    spinner.fail(`Failed! ${err}`)
   })
 }
