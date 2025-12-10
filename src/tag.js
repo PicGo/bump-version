@@ -9,11 +9,10 @@ module.exports = (argv, newVersion) => {
   } else {
     flow = exec(argv, `git tag -a v${newVersion} -m v${newVersion}`)
   }
-  return flow
-    .then(async () => {
-      if (argv.push) {
-        await exec(`git push --follow-tags origin master`)
-      }
-      return Promise.resolve()
-    })
+  return flow.then(async () => {
+    if (argv.push) {
+      await exec(`git push --follow-tags origin master`)
+    }
+    return null
+  })
 }

@@ -4,6 +4,8 @@ A full `git commit` -> `changelog` -> `release` workflow & convention.
 
 It's now only available for Node.js projects. Thanks [standard-version](https://github.com/conventional-changelog/standard-version) for the inspiration.
 
+> Starting from v1.2.0, bump-version requires Node.js 20 or higher.
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/Molunerfinn/test/master/picgo/New%20LOGO-150.png" alt="">
 </p>
@@ -22,11 +24,15 @@ It's now only available for Node.js projects. Thanks [standard-version](https://
 ## Installation
 
 ```bash
-npm install -D  @picgo/bump-version
+npm install -D  @picgo/bump-version commitizen
 
 #or
 
-yarn add -D  @picgo/bump-version
+yarn add -D  @picgo/bump-version commitizen
+
+#or
+
+pnpm add -D  @picgo/bump-version commitizen
 ```
 
 Also, add the following data at the top level in your `package.json` to properly config `bump-version` (replace old `config` if you have already configured `commitizen` or `cz-customizable` before):

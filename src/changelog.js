@@ -11,7 +11,7 @@ module.exports = (argv, newVersion) => {
     let oldContent = ''
     try {
       oldContent = fs.readFileSync(argv.file, 'utf8')
-    } catch (e) {
+    } catch {
       oldContent = ''
     }
     let context = ''
