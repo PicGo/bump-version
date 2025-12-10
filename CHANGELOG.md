@@ -1,3 +1,18 @@
+# :tada: 2.0.0 (2025-12-10)
+
+
+### :bug: Bug Fixes
+
+* some deps not installed ([f2a4f74](https://github.com/PicGo/bump-version/commit/f2a4f74))
+
+
+### :package: Chore
+
+* add pnpm-lock to npmignore ([6de1b65](https://github.com/PicGo/bump-version/commit/6de1b65))
+* update deps \&\& add node 20 limit ([d2d96e9](https://github.com/PicGo/bump-version/commit/d2d96e9))
+
+
+
 ## :tada: 1.1.2 (2021-09-16)
 
 
