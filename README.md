@@ -24,15 +24,15 @@ It's now only available for Node.js projects. Thanks [standard-version](https://
 ## Installation
 
 ```bash
-npm install -D  @picgo/bump-version commitizen
+npm install -D  @picgo/bump-version commitizen cz-customizable
 
 #or
 
-yarn add -D  @picgo/bump-version commitizen
+yarn add -D  @picgo/bump-version commitizen cz-customizable
 
 #or
 
-pnpm add -D  @picgo/bump-version commitizen
+pnpm add -D  @picgo/bump-version commitizen cz-customizable
 ```
 
 Also, add the following data at the top level in your `package.json` to properly config `bump-version` (replace old `config` if you have already configured `commitizen` or `cz-customizable` before):
