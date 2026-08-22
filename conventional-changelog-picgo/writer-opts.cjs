@@ -59,8 +59,6 @@ function getWriterOpts () {
         commit.type = `:package: Chore`
       } else if (commit.type === `:pushpin: Init`) {
         commit.type = `:pushpin: Init`
-      } else if (discard) {
-        return
       } else if (commit.type === `:arrow_up: Upgrade`) {
         commit.type = `:arrow_up: Dependencies Upgrade`
       } else if (commit.type === `:art: Style`) {
@@ -70,6 +68,10 @@ function getWriterOpts () {
       } else if (commit.type === `:white_check_mark: Test`) {
         commit.type = `:white_check_mark: Tests`
       } else if (commit.type === `:construction: WIP` || commit.type === ':tada: Release') {
+        // WIP is noise and Release is this tool's own commit.
+        return
+      } else if (discard) {
+        // Anything unrecognised, unless it carries a BREAKING CHANGE note.
         return
       }
 
