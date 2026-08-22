@@ -1,3 +1,42 @@
+# :tada: 3.0.0 (2026-08-22)
+
+
+### :sparkles: Features
+
+* convert the CLI to ESM and upgrade its dependencies ([9165570](https://github.com/PicGo/bump-version/commit/9165570))
+
+
+### :bug: Bug Fixes
+
+* stop dropping Upgrade, Style, Refactor and Test from changelogs ([cd252e2](https://github.com/PicGo/bump-version/commit/cd252e2))
+
+
+### :arrow_up: Dependencies Upgrade
+
+* clear the remaining dev vulnerabilities ([bdd1fb2](https://github.com/PicGo/bump-version/commit/bdd1fb2))
+* move contributor tooling out of dependencies ([08093ca](https://github.com/PicGo/bump-version/commit/08093ca))
+
+
+### :package: Chore
+
+* update actions and run tests before publishing ([3317c25](https://github.com/PicGo/bump-version/commit/3317c25))
+
+
+### :white_check_mark: Tests
+
+* cover version resolution and the version write ([4b98e2a](https://github.com/PicGo/bump-version/commit/4b98e2a))
+
+
+### BREAKING CHANGES
+
+* note — otherwise it was silently discarded. Four of the
+PicGo convention's own types never appeared in a changelog.
+
+Moved the discard branch below them, where it now only catches genuinely
+unrecognised types, and kept WIP and Release excluded explicitly.
+
+
+
 # :tada: 2.1.0 (2026-08-22)
 
 
