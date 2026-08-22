@@ -127,7 +127,10 @@ Usage
   bump-version
 
 Example
-  bump-version -t major
+  bump-version -t major                 Interactive, confirms before running
+  bump-version -t minor -y              Non-interactive, no TTY needed
+  bump-version --version 1.0.0 -y       Bump to an exact version
+  bump-version -t minor -y -d           Preview without changing anything
 
 Options
   -a, --preid-alpha             Prerelease id: alpha. Exp. 1.0.0.alpha-0
@@ -147,6 +150,13 @@ Options
   -t, --type                    Release type. [major, minor, patch, premajor, preminor, prepatch, prerelease]
                                 Default: patch
 
+  -y, --yes                     Skip all prompts and run immediately. Needs no TTY,
+                                so it works in CI and in scripts
+                                Default: false
+
+      --version                 Bump to this exact version instead of deriving one
+                                from --type. A leading "v" is accepted. Exp. 1.0.0
+
   --push                        Auto push commits to origin master
                                 Default: false
 
@@ -155,6 +165,24 @@ Options
 
   --no-changelog                Changelog won't be created
                                 Default: changelog will be created
+```
+
+#### Non-interactive use
+
+Without `-y` the tool always asks for confirmation, which needs a TTY and therefore fails in CI, in `npm run` chains and in agent sessions. `-y` skips every prompt:
+
+```bash
+bump-version -t minor -y              # 0.1.0 -> 0.2.0
+bump-version --version 1.0.0 -y       # bump to exactly 1.0.0
+bump-version --version v1.0.0 -y      # same; a leading "v" is accepted
+```
+
+`--version` takes precedence over `--type`, and is rejected when it is not valid semver or is not greater than the current version. Invalid input exits with code `1`, so a CI step fails rather than tagging the wrong version.
+
+Pair it with `-d` to see exactly what a release would do — the new version, the generated changelog — without writing, committing or tagging anything:
+
+```bash
+bump-version -t minor -y -d
 ```
 
 Don't know which version should be the next? Never mind:

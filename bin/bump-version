@@ -22,8 +22,12 @@ let argv = minimist(process.argv.slice(2), {
     'file': 'f', // changelog file,
     'path': 'p', // package.json's path
     'help': 'h', // help message
-    'type': 't' // bump type
-  }
+    'type': 't', // bump type
+    'yes': 'y' // skip prompts
+  },
+  // Without this, `--version 1.0.0-beta.1` is parsed as a number and loses
+  // everything after the first dot.
+  string: ['version', 'type', 'file', 'path']
 })
 
 if (argv.h) {
@@ -38,8 +42,31 @@ if (currentVersion === undefined) {
   process.exit(0)
 }
 let preid = argv.a ? 'alpha' : argv.b ? 'beta' : ''
-let nextVersion = semver.inc(currentVersion, releaseType, preid)
 let releaseTypes = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease']
+
+// An explicit --version wins over --type: naming a version is unambiguous,
+// so silently deriving a different one from the type would be surprising.
+let explicitVersion = typeof argv.version === 'string' ? argv.version.trim() : ''
+let nextVersion
+if (explicitVersion !== '') {
+  // Accept a leading `v` because that is how the tag is written and how
+  // people say it out loud.
+  nextVersion = semver.valid(explicitVersion.replace(/^v/, ''))
+  if (nextVersion === null) {
+    logger(`Invalid version: ${explicitVersion}`, 'error')
+    process.exit(1)
+  }
+  if (semver.lte(nextVersion, currentVersion)) {
+    logger(`Version ${nextVersion} is not greater than the current ${currentVersion}!`, 'error')
+    process.exit(1)
+  }
+} else {
+  if (!releaseTypes.includes(releaseType)) {
+    logger(`Invalid release type: ${releaseType}. Expected one of ${releaseTypes.join(', ')}`, 'error')
+    process.exit(1)
+  }
+  nextVersion = semver.inc(currentVersion, releaseType, preid)
+}
 
 function generateReleaseTypes (types) {
   return types.map(item => {
@@ -71,6 +98,14 @@ BumpVersion -- By PicGo Group
   `
 );
 (async () => {
+  // Non-interactive path: no prompt is written at all, so this works with no
+  // TTY attached (CI, `pnpm release` from a script, an agent session).
+  if (argv.yes) {
+    console.log(`Bumping ${currentVersion} -> ${nextVersion}${argv.dry ? ' (dry run)' : ''}`)
+    await mainLifeCycle(argv, currentVersion, nextVersion)
+    return
+  }
+
   let answer = await inquirer.prompt(promptList)
   if (answer.confirmVersion) {
     await mainLifeCycle(argv, currentVersion, nextVersion)
