@@ -1,3 +1,25 @@
+# :tada: 2.1.0 (2026-08-22)
+
+
+### :sparkles: Features
+
+* add non-interactive mode and an explicit --version ([278d034](https://github.com/PicGo/bump-version/commit/278d034))
+
+
+### :bug: Bug Fixes
+
+* fix deps bug ([caba420](https://github.com/PicGo/bump-version/commit/caba420))
+* github actions error ([03c0733](https://github.com/PicGo/bump-version/commit/03c0733))
+* write the version when --no-dry is passed ([1c042cd](https://github.com/PicGo/bump-version/commit/1c042cd))
+
+
+### :package: Chore
+
+* update actions ([4b0c924](https://github.com/PicGo/bump-version/commit/4b0c924))
+* update readme ([1819726](https://github.com/PicGo/bump-version/commit/1819726))
+
+
+
 # :tada: 2.0.0 (2025-12-10)
 
 
