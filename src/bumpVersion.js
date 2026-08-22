@@ -2,9 +2,9 @@ const fs = require('fs')
 const checkFileAndGetPath = require('./utils').checkFileAndGetPath
 let versionFiles = ['package.json', 'package-lock.json']
 module.exports = (argv, version) => {
-  if (argv.dry === false) {
-    return Promise.resolve()
-  }
+  // No early return for `dry` here: the write itself is guarded below, so
+  // bailing out would also skip it for `--no-dry`, leaving commit and tag to
+  // run against an unchanged version.
   versionFiles = checkFileAndGetPath(argv, versionFiles)
 
   for (let file of versionFiles) {
