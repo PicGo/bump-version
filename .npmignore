@@ -9,3 +9,5 @@ tslint.json
 pnpm-lock.yaml
 test/
 vitest.config.js
+.husky/
+.github/

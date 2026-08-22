@@ -1,7 +1,7 @@
 const typeEnum = require('./types.cjs')
 
 module.exports = {
-  parserPreset: '../conventional-changelog-picgo/parser-opts',
+  parserPreset: '../conventional-changelog-picgo/parser-opts.cjs',
   rules: {
     'body-leading-blank': [1, 'always'],
     'footer-leading-blank': [1, 'always'],
