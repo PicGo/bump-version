@@ -24,16 +24,18 @@ It's now only available for Node.js projects. Thanks [standard-version](https://
 ## Installation
 
 ```bash
-npm install -D  @picgo/bump-version commitizen cz-customizable
+npm install -D  @picgo/bump-version commitizen cz-customizable @commitlint/cli husky
 
 #or
 
-yarn add -D  @picgo/bump-version commitizen cz-customizable
+yarn add -D  @picgo/bump-version commitizen cz-customizable @commitlint/cli husky
 
 #or
 
-pnpm add -D  @picgo/bump-version commitizen cz-customizable
+pnpm add -D  @picgo/bump-version commitizen cz-customizable @commitlint/cli husky
 ```
+
+> `commitizen`, `cz-customizable`, `@commitlint/cli` and `husky` are the tools that provide the `git-cz` and `commitlint` commands and the git hooks. They are peer tooling rather than dependencies of `bump-version` itself, so install the ones you actually use — if you only want `bump-version` to bump versions and write changelogs, `@picgo/bump-version` alone is enough.
 
 Also, add the following data at the top level in your `package.json` to properly config `bump-version` (replace old `config` if you have already configured `commitizen` or `cz-customizable` before):
 
