@@ -1,10 +1,5 @@
-// The test files are ESM (vitest requires it); the source under test stays
-// CommonJS, which `createRequire` loads unchanged.
 import { describe, it, expect } from 'vitest'
-import { createRequire } from 'node:module'
-
-const require = createRequire(import.meta.url)
-const resolveVersion = require('../src/resolveVersion')
+import resolveVersion from '../src/resolveVersion.js'
 
 describe('resolveVersion — release types', () => {
   it('defaults to patch', () => {

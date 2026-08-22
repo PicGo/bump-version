@@ -1,16 +1,16 @@
-const utils = require('./utils')
-const exec = require('./exec')
-let changedFiles = [
+import { checkFileAndGetPath } from './utils.js'
+import exec from './exec.js'
+const VERSION_FILES = [
   'package.json',
   'package-lock.json'
 ]
-module.exports = (argv, newVersion) => {
-  if (argv.changelog !== false) {
-    changedFiles.push(argv.file)
-  }
+export default (argv, newVersion) => {
+  // Built per call: reassigning a module-level array leaks the previous
+  // run's resolved paths into the next one.
+  const files = argv.changelog !== false ? [...VERSION_FILES, argv.file] : [...VERSION_FILES]
   const releaseMsg = `:tada: Release: v${newVersion}`
   if (argv.skipCommit) return Promise.resolve()
-  changedFiles = utils.checkFileAndGetPath(argv, changedFiles).join(' ')
+  const changedFiles = checkFileAndGetPath(argv, files).join(' ')
   if (changedFiles === '' || argv.dry) {
     return Promise.resolve()
   }

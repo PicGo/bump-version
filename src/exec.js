@@ -1,7 +1,7 @@
-const exec = require('child_process').exec
-const logger = require('./logger')
+import { exec } from 'node:child_process'
+import logger from './logger.js'
 
-module.exports = (argv, cmd) => {
+export default (argv, cmd) => {
   return new Promise((resolve, reject) => {
     // Exec given cmd and handle possible errors
     exec(cmd, { cwd: argv.path }, function (err, stdout, stderr) {

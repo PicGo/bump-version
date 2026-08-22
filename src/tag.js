@@ -1,5 +1,5 @@
-const exec = require('./exec')
-module.exports = (argv, newVersion) => {
+import exec from './exec.js'
+export default (argv, newVersion) => {
   if (argv.dry) {
     return Promise.resolve()
   }
@@ -11,7 +11,7 @@ module.exports = (argv, newVersion) => {
   }
   return flow.then(async () => {
     if (argv.push) {
-      await exec(`git push --follow-tags origin master`)
+      await exec(argv, `git push --follow-tags origin master`)
     }
     return null
   })

@@ -1,11 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
-import { createRequire } from 'node:module'
 import { mkdtempSync, rmSync, writeFileSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-
-const require = createRequire(import.meta.url)
-const bumpVersion = require('../src/bumpVersion')
+import bumpVersion from '../src/bumpVersion.js'
 
 let dir
 

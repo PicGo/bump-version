@@ -1,8 +1,8 @@
-const cc = require('conventional-changelog')
-const config = require('../conventional-changelog-picgo')
-const fs = require('fs')
+import cc from 'conventional-changelog'
+import fs from 'node:fs'
+import config from '../conventional-changelog-picgo/index.cjs'
 
-module.exports = (argv, newVersion) => {
+export default (argv, newVersion) => {
   if (argv.changelog === false) {
     return Promise.resolve()
   }

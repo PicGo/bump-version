@@ -1,6 +1,6 @@
-const path = require('path')
-const fs = require('fs')
-const checkFileAndGetPath = (argv, files) => {
+import path from 'node:path'
+import fs from 'node:fs'
+export const checkFileAndGetPath = (argv, files) => {
   return files.map(item => {
     if (path.isAbsolute(item)) {
       return item
@@ -10,7 +10,7 @@ const checkFileAndGetPath = (argv, files) => {
     return fs.existsSync(item)
   })
 }
-const helperMsg = `
+export const helperMsg = `
 BumpVersion -- By PicGo Group
 
 Usage
@@ -57,7 +57,3 @@ Options
                                 Default: changelog will be created
 `
 
-module.exports = {
-  checkFileAndGetPath,
-  helperMsg
-}

@@ -4,7 +4,7 @@ A full `git commit` -> `changelog` -> `release` workflow & convention.
 
 It's now only available for Node.js projects. Thanks [standard-version](https://github.com/conventional-changelog/standard-version) for the inspiration.
 
-> Starting from v1.2.0, bump-version requires Node.js 20 or higher.
+> Starting from v3.0.0, bump-version is an ESM package and requires Node.js 22 or higher. The configs it ships for `commitlint` and `cz-customizable` remain CommonJS, so those tools keep loading them as before.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Molunerfinn/test/master/picgo/New%20LOGO-150.png" alt="">
@@ -50,11 +50,11 @@ Also, add the following data at the top level in your `package.json` to properly
     "path": "./node_modules/cz-customizable"
   },
   "cz-customizable": {
-    "config": "./node_modules/@picgo/bump-version/.cz-config.js"
+    "config": "./node_modules/@picgo/bump-version/.cz-config.cjs"
   }
 },
 "commitlint": {
-  "extends": ["./node_modules/@picgo/bump-version/commitlint-picgo"]
+  "extends": ["./node_modules/@picgo/bump-version/commitlint-picgo/index.cjs"]
 }
 ```
 

@@ -1,5 +1,9 @@
-const { FlatCompat } = require('@eslint/eslintrc')
-const js = require('@eslint/js')
+import { FlatCompat } from '@eslint/eslintrc'
+import js from '@eslint/js'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -7,7 +11,7 @@ const compat = new FlatCompat({
   allConfig: js.configs.all
 })
 
-module.exports = [
+export default [
   {
     ignores: ['node_modules', 'dist']
   },
@@ -18,28 +22,38 @@ module.exports = [
     'plugin:promise/recommended'
   ),
   {
+    // The CLI and its src/ modules are ESM, as is this config.
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: 'script'
+      sourceType: 'module'
+    },
+    rules: {
+      // Resolution of bare ESM specifiers is handled by Node, not the plugin.
+      'import/no-unresolved': 'off'
+    }
+  },
+  {
+    // Configs consumed by other tools' CommonJS loaders stay CJS.
+    files: ['**/*.cjs'],
+    languageOptions: {
+      sourceType: 'commonjs',
+      globals: {
+        module: 'writable',
+        require: 'readonly',
+        __dirname: 'readonly'
+      }
     }
   },
   {
     files: ['eslint.config.js'],
     rules: {
-      'n/no-unpublished-require': 'off'
+      'n/no-unpublished-import': 'off'
     }
   },
   {
-    // The source stays CommonJS; only the tests are ESM, because vitest
-    // refuses to be require()d.
     files: ['test/**/*.js'],
-    languageOptions: {
-      sourceType: 'module'
-    },
     rules: {
-      // vitest is a devDependency, which is exactly right for test files.
-      'n/no-unpublished-import': 'off',
-      'import/no-unresolved': 'off'
+      'n/no-unpublished-import': 'off'
     }
   }
 ]

@@ -1,6 +1,8 @@
-const semver = require('semver')
+import semver from 'semver'
 
-const releaseTypes = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease']
+const RELEASE_TYPES = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease']
+
+export const releaseTypes = RELEASE_TYPES
 
 /**
  * Work out which version to bump to.
@@ -13,7 +15,7 @@ const releaseTypes = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepat
  * @param {string} currentVersion the version currently in package.json
  * @returns {{ version: string } | { error: string }}
  */
-module.exports = (argv, currentVersion) => {
+export default (argv, currentVersion) => {
   // An explicit --version wins over --type: naming a version is unambiguous,
   // so silently deriving a different one from the type would be surprising.
   const explicit = typeof argv.version === 'string' ? argv.version.trim() : ''
@@ -32,8 +34,8 @@ module.exports = (argv, currentVersion) => {
   }
 
   const releaseType = typeof argv.t === 'string' ? argv.t : 'patch'
-  if (!releaseTypes.includes(releaseType)) {
-    return { error: `Invalid release type: ${releaseType}. Expected one of ${releaseTypes.join(', ')}` }
+  if (!RELEASE_TYPES.includes(releaseType)) {
+    return { error: `Invalid release type: ${releaseType}. Expected one of ${RELEASE_TYPES.join(', ')}` }
   }
 
   const preid = argv.a ? 'alpha' : argv.b ? 'beta' : ''
@@ -44,4 +46,3 @@ module.exports = (argv, currentVersion) => {
   return { version }
 }
 
-module.exports.releaseTypes = releaseTypes

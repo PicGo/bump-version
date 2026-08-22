@@ -1,4 +1,4 @@
-const typeEnum = require('./types')
+const typeEnum = require('./types.cjs')
 
 module.exports = {
   parserPreset: '../conventional-changelog-picgo/parser-opts',

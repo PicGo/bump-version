@@ -1,16 +1,18 @@
 #!/usr/bin/env node
-const minimist = require('minimist')
-const semver = require('semver')
-const path = require('path')
-const inquirer = require('inquirer').default
-const logger = require('../src/logger')
-const mainLifeCycle = require('../src/mainLifeCycle')
-const resolveVersion = require('../src/resolveVersion')
-const utils = require('../src/utils')
+import minimist from 'minimist'
+import semver from 'semver'
+import path from 'node:path'
+import fs from 'node:fs'
+import { Separator } from '@inquirer/prompts'
+import inquirer from 'inquirer'
+import logger from '../src/logger.js'
+import mainLifeCycle from '../src/mainLifeCycle.js'
+import resolveVersion, { releaseTypes } from '../src/resolveVersion.js'
+import * as utils from '../src/utils.js'
 
 let pkg
 try {
-  pkg = require(path.join(process.cwd(), 'package.json'))
+  pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8'))
 } catch (e) {
   logger('package.json not found!', 'error')
   process.exit(0)
@@ -42,7 +44,6 @@ if (currentVersion === undefined) {
   process.exit(0)
 }
 let preid = argv.a ? 'alpha' : argv.b ? 'beta' : ''
-let releaseTypes = resolveVersion.releaseTypes
 
 let resolved = resolveVersion(argv, currentVersion)
 if (resolved.error) {
@@ -100,7 +101,7 @@ BumpVersion -- By PicGo Group
         message: `The current version is ${currentVersion}\n Which version would you like to bump it?`,
         choices: [
           ...generateReleaseTypes(releaseTypes),
-          new inquirer.Separator(),
+          new Separator(),
           'custom version',
           'never mind~'
         ],

@@ -1,9 +1,9 @@
-const bumpVersion = require('./bumpVersion')
-const commit = require('./commit')
-const changeLog = require('./changelog')
-const tag = require('./tag')
-const spinner = require('./ora')
-module.exports = (argv, currentVersion, newVersion) => {
+import bumpVersion from './bumpVersion.js'
+import commit from './commit.js'
+import changeLog from './changelog.js'
+import tag from './tag.js'
+import spinner from './ora.js'
+export default (argv, currentVersion, newVersion) => {
   spinner.start()
   return Promise.resolve()
     .then(() => {
