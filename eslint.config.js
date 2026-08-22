@@ -28,5 +28,18 @@ module.exports = [
     rules: {
       'n/no-unpublished-require': 'off'
     }
+  },
+  {
+    // The source stays CommonJS; only the tests are ESM, because vitest
+    // refuses to be require()d.
+    files: ['test/**/*.js'],
+    languageOptions: {
+      sourceType: 'module'
+    },
+    rules: {
+      // vitest is a devDependency, which is exactly right for test files.
+      'n/no-unpublished-import': 'off',
+      'import/no-unresolved': 'off'
+    }
   }
 ]

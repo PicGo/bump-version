@@ -7,3 +7,5 @@ tslint.json
 .travis.yml
 .serena/
 pnpm-lock.yaml
+test/
+vitest.config.js

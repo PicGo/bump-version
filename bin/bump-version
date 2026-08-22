@@ -5,6 +5,7 @@ const path = require('path')
 const inquirer = require('inquirer').default
 const logger = require('../src/logger')
 const mainLifeCycle = require('../src/mainLifeCycle')
+const resolveVersion = require('../src/resolveVersion')
 const utils = require('../src/utils')
 
 let pkg
@@ -35,38 +36,20 @@ if (argv.h) {
   process.exit(0)
 }
 
-let releaseType = typeof argv.t === 'string' ? argv.t : 'patch'
 let currentVersion = pkg.version
 if (currentVersion === undefined) {
   logger('Version field is not found in package.json!', 'error')
   process.exit(0)
 }
 let preid = argv.a ? 'alpha' : argv.b ? 'beta' : ''
-let releaseTypes = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease']
+let releaseTypes = resolveVersion.releaseTypes
 
-// An explicit --version wins over --type: naming a version is unambiguous,
-// so silently deriving a different one from the type would be surprising.
-let explicitVersion = typeof argv.version === 'string' ? argv.version.trim() : ''
-let nextVersion
-if (explicitVersion !== '') {
-  // Accept a leading `v` because that is how the tag is written and how
-  // people say it out loud.
-  nextVersion = semver.valid(explicitVersion.replace(/^v/, ''))
-  if (nextVersion === null) {
-    logger(`Invalid version: ${explicitVersion}`, 'error')
-    process.exit(1)
-  }
-  if (semver.lte(nextVersion, currentVersion)) {
-    logger(`Version ${nextVersion} is not greater than the current ${currentVersion}!`, 'error')
-    process.exit(1)
-  }
-} else {
-  if (!releaseTypes.includes(releaseType)) {
-    logger(`Invalid release type: ${releaseType}. Expected one of ${releaseTypes.join(', ')}`, 'error')
-    process.exit(1)
-  }
-  nextVersion = semver.inc(currentVersion, releaseType, preid)
+let resolved = resolveVersion(argv, currentVersion)
+if (resolved.error) {
+  logger(resolved.error, 'error')
+  process.exit(1)
 }
+let nextVersion = resolved.version
 
 function generateReleaseTypes (types) {
   return types.map(item => {
@@ -136,11 +119,13 @@ BumpVersion -- By PicGo Group
         }
       ]
       let result = await inquirer.prompt(promptList)
-      if (semver.valid(result.version) && semver.gte(result.version, currentVersion)) {
-        await mainLifeCycle(argv, currentVersion, result.version)
-      } else {
-        return logger('Invalid version!', 'error')
+      // Same validator as --version, so a typed version and a flagged one are
+      // held to one rule.
+      let custom = resolveVersion({ version: result.version }, currentVersion)
+      if (custom.error) {
+        return logger(custom.error, 'error')
       }
+      await mainLifeCycle(argv, currentVersion, custom.version)
     } else {
       await mainLifeCycle(argv, currentVersion, answer.version)
     }

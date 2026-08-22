@@ -10,11 +10,12 @@
     "access": "public"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "test": "vitest run",
     "cz": "git-cz",
     "release": "node ./bin/bump-version",
     "lint": "eslint --ext .js .",
-    "lint:fix": "eslint --ext .js --fix ."
+    "lint:fix": "eslint --ext .js --fix .",
+    "test:watch": "vitest"
   },
   "husky": {
     "hooks": {
@@ -38,7 +39,8 @@
     "eslint": "^9.39.1",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-n": "^17.23.1",
-    "eslint-plugin-promise": "^7.2.1"
+    "eslint-plugin-promise": "^7.2.1",
+    "vitest": "^4.1.11"
   },
   "config": {
     "commitizen": {
